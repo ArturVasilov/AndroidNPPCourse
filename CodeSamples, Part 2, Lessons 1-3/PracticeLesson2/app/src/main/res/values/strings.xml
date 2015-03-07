@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PracticeLesson2</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="count">Count: </string>
+    <string name="add_1">Add 1</string>
+    <string name="add_2">Add 2</string>
+    <string name="add_5">Add 5</string>
+    <string name="add_10">Add 10</string>
+    <string name="add_50">Add 50</string>
+    <string name="add_100">Add 100</string>
+    <string name="back">Back</string>
+    <string name="clear">Clear</string>
+</resources>
