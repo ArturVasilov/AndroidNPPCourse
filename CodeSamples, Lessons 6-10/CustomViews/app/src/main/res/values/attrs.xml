@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DrawingView">
+        <attr name="bitmap_size" format="enum">
+            <enum name="default_size" value="1"/>
+            <enum name="large" value="2"/>
+            <enum name="xlarge" value="4"/>
+            <enum name="xxlarge" value="8"/>
+        </attr>
+    </declare-styleable>
+</resources>

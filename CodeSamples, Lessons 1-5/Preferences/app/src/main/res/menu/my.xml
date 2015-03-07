@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MyActivity">
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings" />
+
+    <item
+        android:id="@+id/call"
+        android:icon="@android:drawable/sym_call_incoming"
+        android:orderInCategory="50"
+        android:showAsAction="always"
+        android:title="" />
+
+    <item
+        android:id="@+id/email"
+        android:icon="@android:drawable/sym_action_email"
+        android:orderInCategory="70"
+        android:showAsAction="ifRoom"
+        android:title="@string/send_message" />
+
+    <item
+        android:id="@+id/microphone"
+        android:icon="@android:drawable/ic_btn_speak_now"
+        android:orderInCategory="80"
+        android:showAsAction="ifRoom"
+        android:title="@string/microphone" />
+
+</menu>

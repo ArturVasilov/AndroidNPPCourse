@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- strings for Russia -->
+
+    <string name="app_name">Mое приложение</string>
+    <string name="hello_world">Здравствуй, мир!</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="send_message">Отправить сообщение</string>
+    <string name="microphone">Говорите</string>
+
+</resources>
