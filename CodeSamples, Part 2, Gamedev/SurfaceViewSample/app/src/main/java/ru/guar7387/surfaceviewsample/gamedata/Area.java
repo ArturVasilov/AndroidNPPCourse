@@ -10,6 +10,7 @@ public interface Area {
 
     public int getBottom();
 
-    public boolean intersects(Area area);
+    public void changePosition(int left, int top, int right, int bottom);
 
+    public boolean intersects(Area area);
 }

@@ -14,6 +14,7 @@ public class ObjectArea implements Area {
         this.bottom = bottom;
     }
 
+    @Override
     public void changePosition(int left, int top, int right, int bottom) {
         this.left = left;
         this.top = top;
@@ -45,5 +46,15 @@ public class ObjectArea implements Area {
     public boolean intersects(Area area) {
         //TODO
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectArea{" +
+                "left=" + left +
+                ", top=" + top +
+                ", right=" + right +
+                ", bottom=" + bottom +
+                '}';
     }
 }

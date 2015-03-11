@@ -6,6 +6,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.guar7387.surfaceviewsample.controller.GameController;
 import ru.guar7387.surfaceviewsample.controller.GameControllerImplementation;
 import ru.guar7387.surfaceviewsample.gamedata.BitmapsStorage;
@@ -49,11 +52,10 @@ public class GameThread extends Thread {
             render();
             long endTime = System.currentTimeMillis();
 
-            /*
             long difference = endTime - startTime;
             if (difference < MINIMUM_RENDER_DELAY) {
                 try {
-                    Thread.sleep(MINIMUM_RENDER_DELAY - difference);
+                    sleep(MINIMUM_RENDER_DELAY - difference);
                 } catch (InterruptedException ie) {
                     break;
                 }
@@ -61,13 +63,12 @@ public class GameThread extends Thread {
             }
             else {
                 try {
-                    Thread.sleep(MINIMUM_RENDER_DELAY - difference);
+                    sleep(difference);
                 } catch (InterruptedException ie) {
                     break;
                 }
                 mGameController.update(MINIMUM_RENDER_DELAY);
             }
-            */
         }
     }
 
@@ -80,18 +81,21 @@ public class GameThread extends Thread {
         if (canvas == null) {
             return;
         }
+        canvas.drawARGB(255, 0, 0, 0);
 
         BitmapsStorage bitmapsStorage = mGameModel.getBitmapsStorage();
 
         Hero hero = mGameModel.getHero();
-        Bitmap bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), hero.getBitmapId(), hero.getArea());
+        Bitmap bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), hero.getBitmapId(), hero.getObjectArea());
         hero.render(bitmap, mPaint, canvas);
         for (Monster monster : mGameModel.getMonsters()) {
-            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), monster.getBitmapId(), monster.getArea());
+            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), monster.getBitmapId(), monster.getObjectArea());
             monster.render(bitmap, mPaint, canvas);
         }
-        for (Fireball fireball : mGameModel.getFireballs()) {
-            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), fireball.getBitmapId(), fireball.getArea());
+        //to prevent concuttrent modification
+        List<Fireball> fireballs = new ArrayList<>(mGameModel.getFireballs());
+        for (Fireball fireball : fireballs) {
+            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), fireball.getBitmapId(), fireball.getObjectArea());
             fireball.render(bitmap, mPaint, canvas);
         }
         holder.unlockCanvasAndPost(canvas);
@@ -99,5 +103,9 @@ public class GameThread extends Thread {
 
     public void setRunning(boolean isRunning) {
         this.isRunning = isRunning;
+    }
+
+    public GameController getController() {
+        return mGameController;
     }
 }

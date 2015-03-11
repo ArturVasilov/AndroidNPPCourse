@@ -22,13 +22,6 @@ public class BitmapsStorageImpementation implements BitmapsStorage {
             return bitmap;
         }
         bitmap = BitmapFactory.decodeResource(resources, id);
-
-        int height = area.getTop() - area.getBottom();
-        int width = area.getRight() - area.getLeft();
-        if (Math.abs(bitmap.getHeight() - height) > 5 || Math.abs(bitmap.getHeight() - width) > 5) {
-            bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
-        }
-
         bitmapMap.put(id, bitmap);
         return bitmap;
     }

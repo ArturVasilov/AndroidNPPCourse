@@ -4,8 +4,8 @@ public interface Monster extends GameObject {
 
     public int getHitPoints();
 
-    public int getSpeed();
+    public void shoot(int damage);
 
-    public void move();
+    public int getSpeed();
 
 }

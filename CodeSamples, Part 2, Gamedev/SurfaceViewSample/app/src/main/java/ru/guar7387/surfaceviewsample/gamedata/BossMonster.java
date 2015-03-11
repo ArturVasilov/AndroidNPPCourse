@@ -8,10 +8,24 @@ import ru.guar7387.surfaceviewsample.R;
 
 public class BossMonster implements Monster {
 
-    private Area area;
+    private final Area area;
 
-    public BossMonster(Area area) {
-        this.area = area;
+    private final int left;
+    private final int right;
+
+    private int hitPoints;
+
+    private double difX;
+
+    public BossMonster(int x, int y) {
+        left = x;
+        right = x + ImagesSize.MiddleMonster.BITMAP_WIDTH;
+
+        area = new ObjectArea(x, y, x + ImagesSize.MiddleMonster.BITMAP_WIDTH, y + ImagesSize.MiddleMonster.BITMAP_HEIGHT);
+
+        difX = 0;
+
+        hitPoints = 50;
     }
 
     @Override
@@ -21,36 +35,39 @@ public class BossMonster implements Monster {
 
     @Override
     public int getHitPoints() {
-        return 10;
+        return hitPoints;
     }
 
     @Override
     public int getSpeed() {
-        return 4;
+        return 100;
     }
 
     @Override
-    public void move() {
-
-    }
-
-    @Override
-    public Area getArea() {
+    public Area getObjectArea() {
         return area;
     }
 
     @Override
-    public void changeArea(int left, int top, int right, int bottom) {
-        area = new ObjectArea(left, top, right, bottom);
+    public void shoot(int damage) {
+        hitPoints -= damage;
+    }
+
+    @Override
+    public void move(long time) {
+        int left = this.left;
+        int top = area.getTop();
+        int right = this.right;
+        int bottom = area.getBottom();
+
+        difX += (getSpeed() * (1.0 * time / 3600));
+        left -= (int) difX;
+        right -= (int) difX;
+        area.changePosition(left, top, right, bottom);
     }
 
     @Override
     public void render(Bitmap bitmap, Paint paint, Canvas canvas) {
-        Area area = getArea();
-        if (Math.abs(bitmap.getHeight() - (area.getTop() - area.getBottom())) > 5 ||
-                Math.abs(bitmap.getHeight() - (area.getTop() - area.getBottom())) > 5) {
-            throw new IllegalArgumentException("Bitmap is not scaled properly");
-        }
         canvas.drawBitmap(bitmap, area.getLeft(), area.getTop(), paint);
     }
 }

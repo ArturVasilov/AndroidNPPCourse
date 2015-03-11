@@ -8,9 +8,13 @@ import ru.guar7387.surfaceviewsample.gamedata.BitmapsStorage;
 import ru.guar7387.surfaceviewsample.gamedata.BitmapsStorageImpementation;
 import ru.guar7387.surfaceviewsample.gamedata.Fireball;
 import ru.guar7387.surfaceviewsample.gamedata.Hero;
+import ru.guar7387.surfaceviewsample.gamedata.ImagesSize;
 import ru.guar7387.surfaceviewsample.gamedata.Monster;
+import ru.guar7387.surfaceviewsample.utils.Logger;
 
 public class StandardGameModel implements GameModel {
+
+    private static final String TAG = StandardGameModel.class.getSimpleName();
 
     private final int screenWidth;
     private final int screenHeight;
@@ -27,9 +31,13 @@ public class StandardGameModel implements GameModel {
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
 
+        Logger.log(TAG, "screentWidth - " + screenWidth + "; screenHeight - " + screenHeight);
+
+        ImagesSize.init(screenWidth, screenHeight);
+
         this.bitmapsStorage = new BitmapsStorageImpementation();
 
-        hero = new Hero(0, screenHeight / 2);
+        hero = new Hero();
         monsters = Collections.synchronizedList(new ArrayList<Monster>());
         fireballs = Collections.synchronizedList(new ArrayList<Fireball>());
     }
