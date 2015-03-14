@@ -42,6 +42,6 @@ public class Hero implements GameObject {
     }
 
     public int getDamage() {
-        return 1;
+        return 3;
     }
 }

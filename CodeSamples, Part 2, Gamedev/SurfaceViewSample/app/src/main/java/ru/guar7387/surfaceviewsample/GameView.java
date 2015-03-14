@@ -2,9 +2,6 @@ package ru.guar7387.surfaceviewsample;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -44,21 +41,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        mGameThread = new GameThread(getContext(), this);
-        mGameThread.setRunning(true);
-        mGameThread.start();
+        newGame();
+    }
 
-        /*Canvas canvas = holder.lockCanvas();
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-        canvas.drawCircle(10, 10, 20, paint);
-        paint.setColor(Color.GREEN);
-        canvas.drawCircle(1800, 10, 20, paint);
-        paint.setColor(Color.BLUE);
-        canvas.drawCircle(10, 1000, 20, paint);
-        paint.setColor(Color.CYAN);
-        canvas.drawCircle(1800, 1000, 20, paint);
-        holder.unlockCanvasAndPost(canvas);*/
+    private void newGame() {
+        mGameThread = new GameThread(getContext(), this);
+        mGameThread.setState(GameThread.State.GAME_RUNNING);
+        mGameThread.start();
     }
 
     @Override
@@ -68,7 +57,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        mGameThread.setRunning(false);
+        mGameThread.setState(GameThread.State.STOPPED);
         while (true) {
             try {
                 mGameThread.join();
@@ -82,8 +71,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            GameController controller = mGameThread.getController();
-            controller.shoot((int) event.getX(), (int) event.getY());
+            GameThread.State state = mGameThread.getGameState();
+            if (state == GameThread.State.GAME_RUNNING) {
+                GameController controller = mGameThread.getController();
+                controller.shoot((int) event.getX(), (int) event.getY());
+            }
+            if (state == GameThread.State.DEFEATED) {
+                newGame();
+            }
             return true;
         }
         return super.onTouchEvent(event);

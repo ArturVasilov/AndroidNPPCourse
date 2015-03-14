@@ -39,13 +39,23 @@ public class BossMonster implements Monster {
     }
 
     @Override
+    public boolean isDead() {
+        return hitPoints <= 0;
+    }
+
+    @Override
     public int getSpeed() {
-        return 100;
+        return 40;
     }
 
     @Override
     public Area getObjectArea() {
         return area;
+    }
+
+    @Override
+    public int getWidth() {
+        return ImagesSize.BossMonster.BITMAP_WIDTH;
     }
 
     @Override

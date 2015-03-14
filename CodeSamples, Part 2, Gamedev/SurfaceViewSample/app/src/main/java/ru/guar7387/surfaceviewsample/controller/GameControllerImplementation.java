@@ -2,16 +2,21 @@ package ru.guar7387.surfaceviewsample.controller;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import ru.guar7387.surfaceviewsample.audio.GameAudio;
+import ru.guar7387.surfaceviewsample.gamedata.Area;
 import ru.guar7387.surfaceviewsample.gamedata.BossMonster;
 import ru.guar7387.surfaceviewsample.gamedata.Fireball;
+import ru.guar7387.surfaceviewsample.gamedata.Hero;
 import ru.guar7387.surfaceviewsample.gamedata.ImagesSize;
 import ru.guar7387.surfaceviewsample.gamedata.MiddleMonster;
 import ru.guar7387.surfaceviewsample.gamedata.Monster;
 import ru.guar7387.surfaceviewsample.gamedata.SmallMonster;
 import ru.guar7387.surfaceviewsample.model.GameModel;
+import ru.guar7387.surfaceviewsample.utils.Logger;
 
 public class GameControllerImplementation implements GameController {
 
@@ -19,15 +24,29 @@ public class GameControllerImplementation implements GameController {
 
     private final GameModel gameModel;
 
+    private final GameAudio audio;
+
     private long monsterLastTimeAdded;
 
     private static final long MONSTERS_MINIMUM_DELAY = 500;
 
+    private int score;
+
     private final Random random;
 
-    public GameControllerImplementation(GameModel gameModel) {
+    private final List<GameResult> gameResultListeners;
+
+    private int monstersCountController = 60 * 5_000;
+
+    public GameControllerImplementation(GameModel gameModel, GameAudio audio) {
+        score = 0;
+
         this.gameModel = gameModel;
+        this.audio = audio;
+
         random = new SecureRandom();
+
+        gameResultListeners = new ArrayList<>();
     }
 
     @Override
@@ -43,16 +62,90 @@ public class GameControllerImplementation implements GameController {
     @Override
     public void update(long timeDifference) {
         List<Fireball> fireballs = new ArrayList<>(gameModel.getFireballs());
+        List<Monster> monsters = new ArrayList<>(gameModel.getMonsters());
+        Hero hero = gameModel.getHero();
+
+        Iterator<Monster> monsterIterator = monsters.listIterator();
+        Iterator<Fireball> fireballIterator;
+        while (monsterIterator.hasNext()) {
+            Monster monster = monsterIterator.next();
+            fireballIterator = fireballs.listIterator();
+            while (fireballIterator.hasNext()) {
+                Fireball fireball = fireballIterator.next();
+                Area area = fireball.getObjectArea();
+                if (area.intersects(monster.getObjectArea())) {
+                    Logger.log(TAG, "Monster intersects fireball");
+                    audio.playShootSound();
+                    gameModel.getFireballs().remove(fireball);
+                    fireballIterator.remove();
+                    monster.shoot(hero.getDamage());
+                    score += hero.getDamage();
+                    if (monster.isDead()) {
+                        score += 2;
+                        Logger.log(TAG, "Monster is dead");
+                        gameModel.getMonsters().remove(monster);
+                        monsterIterator.remove();
+                        break;
+                    }
+                }
+            }
+        }
+
+        fireballIterator = fireballs.listIterator();
+        while (fireballIterator.hasNext()) {
+            Fireball fireball = fireballIterator.next();
+            Area area = fireball.getObjectArea();
+            if (area.getLeft() < -ImagesSize.Fireball.BITMAP_WIDTH ||
+                    area.getTop() < -ImagesSize.Fireball.BITMAP_WIDTH ||
+                    area.getRight() > ImagesSize.getScreenWidth() + ImagesSize.Fireball.BITMAP_WIDTH ||
+                    area.getBottom() > ImagesSize.getScreenHeight() + ImagesSize.Fireball.BITMAP_HEIGHT) {
+                Logger.log(TAG, "Fireball has left game area");
+                boolean wasRemoved = gameModel.getFireballs().remove(fireball);
+                Logger.log(TAG, "Fireball was removed - " + wasRemoved);
+                fireballIterator.remove();
+            }
+        }
+
+        monsterIterator = monsters.listIterator();
+        while (monsterIterator.hasNext()) {
+            Monster monster = monsterIterator.next();
+            Area area = monster.getObjectArea();
+            if (area.getLeft() < -monster.getWidth()) {
+                defeated();
+                return;
+            }
+        }
+
         for (Fireball fireball : fireballs) {
             fireball.move(timeDifference);
         }
 
+        monstersCountController -= timeDifference;
         addMonster();
         for (Monster monster : gameModel.getMonsters()) {
             monster.move(timeDifference);
         }
+    }
 
-        //check for screen leave and for intersects
+    @Override
+    public void subscribeForGameResult(GameResult gameResult) {
+        gameResultListeners.add(gameResult);
+    }
+
+    @Override
+    public void unsubscribeForGameResult(GameResult gameResult) {
+        gameResultListeners.remove(gameResult);
+    }
+
+    private void defeated() {
+        audio.playDefeatedSound();
+        Logger.log(TAG, "Defeated");
+        gameModel.getMonsters().clear();
+        gameModel.getFireballs().clear();
+
+        for (GameResult gameResult : gameResultListeners) {
+            gameResult.defeated(score);
+        }
     }
 
     private void addMonster() {
@@ -61,7 +154,8 @@ public class GameControllerImplementation implements GameController {
             return;
         }
         //to add a little randomness for monsters time appearence
-        boolean shouldAddNewMonster = random.nextInt(10) == 9;
+        int randomness = Math.max(monstersCountController / 5000, 30);
+        boolean shouldAddNewMonster = random.nextInt(randomness) == 5;
         if (shouldAddNewMonster) {
             Monster monster;
             int rand = random.nextInt(15) + 1;

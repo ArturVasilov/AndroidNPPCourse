@@ -16,7 +16,7 @@ public class BitmapsStorageImpementation implements BitmapsStorage {
     }
 
     @Override
-    public Bitmap loadBitmap(Resources resources, int id, Area area) {
+    public Bitmap loadBitmap(Resources resources, int id) {
         Bitmap bitmap = bitmapMap.get(id);
         if (bitmap != null) {
             return bitmap;

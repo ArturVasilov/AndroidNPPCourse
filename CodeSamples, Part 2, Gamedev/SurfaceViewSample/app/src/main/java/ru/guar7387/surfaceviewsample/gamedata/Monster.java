@@ -8,4 +8,7 @@ public interface Monster extends GameObject {
 
     public int getSpeed();
 
+    boolean isDead();
+
+    int getWidth();
 }

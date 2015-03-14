@@ -5,6 +5,6 @@ import android.graphics.Bitmap;
 
 public interface BitmapsStorage {
 
-    public Bitmap loadBitmap(Resources resources, int id, Area area);
+    public Bitmap loadBitmap(Resources resources, int id);
 
 }

@@ -11,4 +11,8 @@ public interface GameController {
     public void shoot(int destinationX, int destinationY);
 
     public void start();
+
+    public void subscribeForGameResult(GameResult gameResult);
+
+    public void unsubscribeForGameResult(GameResult gameResult);
 }

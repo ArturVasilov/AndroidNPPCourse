@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import ru.guar7387.surfaceviewsample.R;
-import ru.guar7387.surfaceviewsample.utils.Logger;
 
 public class MiddleMonster implements Monster {
 
@@ -42,13 +41,23 @@ public class MiddleMonster implements Monster {
     }
 
     @Override
+    public boolean isDead() {
+        return hitPoints <= 0;
+    }
+
+    @Override
     public int getSpeed() {
-        return 200;
+        return 100;
     }
 
     @Override
     public Area getObjectArea() {
         return area;
+    }
+
+    @Override
+    public int getWidth() {
+        return ImagesSize.MiddleMonster.BITMAP_WIDTH;
     }
 
     @Override
@@ -67,8 +76,6 @@ public class MiddleMonster implements Monster {
         left -= (int) difX;
         right -= (int) difX;
         area.changePosition(left, top, right, bottom);
-
-        Logger.log(TAG, "Middle monster position - " + area);
     }
 
     @Override

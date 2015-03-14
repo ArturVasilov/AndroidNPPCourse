@@ -1,5 +1,9 @@
 package ru.guar7387.surfaceviewsample.gamedata;
 
+import android.graphics.Point;
+
+import ru.guar7387.surfaceviewsample.utils.Logger;
+
 public class ObjectArea implements Area {
 
     private int left;
@@ -44,8 +48,32 @@ public class ObjectArea implements Area {
 
     @Override
     public boolean intersects(Area area) {
-        //TODO
-        return false;
+        Point point = new Point(area.getLeft(), area.getTop());
+        if (isPointInRect(point)) {
+            Logger.log("Object area", "intersected");
+            return true;
+        }
+
+        point.set(area.getLeft(), area.getBottom());
+        if (isPointInRect(point)) {
+            Logger.log("Object area", "intersected");
+            return true;
+        }
+
+        point.set(area.getRight(), area.getTop());
+        if (isPointInRect(point)) {
+            Logger.log("Object area", "intersected");
+            return true;
+        }
+
+        point.set(area.getRight(), area.getBottom());
+        return isPointInRect(point);
+    }
+
+    private boolean isPointInRect(Point point) {
+        boolean isXOk = getLeft() <= point.x && point.x <= getRight();
+        boolean isYOk = getTop() <= point.y && point.y <= getBottom();
+        return isXOk && isYOk;
     }
 
     @Override

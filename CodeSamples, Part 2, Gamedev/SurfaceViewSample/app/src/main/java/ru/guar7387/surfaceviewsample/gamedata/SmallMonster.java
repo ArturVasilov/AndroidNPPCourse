@@ -39,13 +39,23 @@ public class SmallMonster implements Monster {
     }
 
     @Override
+    public boolean isDead() {
+        return hitPoints <= 0;
+    }
+
+    @Override
     public int getSpeed() {
-        return 400;
+        return 200;
     }
 
     @Override
     public Area getObjectArea() {
         return area;
+    }
+
+    @Override
+    public int getWidth() {
+        return ImagesSize.SmallMonster.BITMAP_WIDTH;
     }
 
     @Override

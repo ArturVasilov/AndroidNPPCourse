@@ -26,7 +26,7 @@ public class Fireball implements GameObject {
         left = x;
         top = y;
         right = x + ImagesSize.Fireball.BITMAP_WIDTH;
-        bottom = ImagesSize.Fireball.BITMAP_HEIGHT;
+        bottom = top + ImagesSize.Fireball.BITMAP_HEIGHT;
         this.area = new ObjectArea(left, top, right, bottom);
 
         difX = 0;
@@ -67,7 +67,7 @@ public class Fireball implements GameObject {
 
     @Override
     public void move(long time) {
-        int speed = 750;
+        int speed = 1500;
 
         int left = this.left;
         int top = this.top;
