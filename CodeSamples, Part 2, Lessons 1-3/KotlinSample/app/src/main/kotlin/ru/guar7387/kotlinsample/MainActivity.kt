@@ -71,12 +71,16 @@ public class MainActivity : ActionBarActivity() {
 
         override fun onReceive(context: Context, intent: Intent) {
             log("EarthquakeReceiver", "onReceive")
-            if (intent.getAction().equalsIgnoreCase(getResources().getString(R.string.earthquakes_downloaded_action))) {
+            if (intent.getAction().equalsIgnoreCase(getResources().getString(
+                    R.string.earthquakes_downloaded_action))) {
                 updateRequests(intent.getParcelableArrayListExtra<Earthquake>(EARTHQUAKES_KEY))
             }
         }
 
     }
 }
+
+
+
 
 

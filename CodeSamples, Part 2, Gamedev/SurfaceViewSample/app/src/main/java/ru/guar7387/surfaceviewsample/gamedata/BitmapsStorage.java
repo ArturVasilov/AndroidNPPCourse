@@ -8,3 +8,5 @@ public interface BitmapsStorage {
     public Bitmap loadBitmap(Resources resources, int id);
 
 }
+
+

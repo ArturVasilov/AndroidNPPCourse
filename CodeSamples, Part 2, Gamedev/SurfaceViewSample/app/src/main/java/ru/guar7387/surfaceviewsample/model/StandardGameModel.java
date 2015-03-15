@@ -16,9 +16,6 @@ public class StandardGameModel implements GameModel {
 
     private static final String TAG = StandardGameModel.class.getSimpleName();
 
-    private final int screenWidth;
-    private final int screenHeight;
-
     private final BitmapsStorage bitmapsStorage;
 
     private final Hero hero;
@@ -28,9 +25,6 @@ public class StandardGameModel implements GameModel {
     private final List<Fireball> fireballs;
 
     public StandardGameModel(int screenWidth, int screenHeight) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-
         Logger.log(TAG, "screentWidth - " + screenWidth + "; screenHeight - " + screenHeight);
 
         ImagesSize.init(screenWidth, screenHeight);
@@ -65,14 +59,6 @@ public class StandardGameModel implements GameModel {
     public BitmapsStorage getBitmapsStorage() {
         return bitmapsStorage;
     }
-
-    @Override
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    @Override
-    public int getScreenHeight() {
-        return screenHeight;
-    }
 }
+
+

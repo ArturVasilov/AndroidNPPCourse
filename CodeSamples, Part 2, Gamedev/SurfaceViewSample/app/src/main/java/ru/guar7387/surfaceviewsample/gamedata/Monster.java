@@ -12,3 +12,5 @@ public interface Monster extends GameObject {
 
     int getWidth();
 }
+
+

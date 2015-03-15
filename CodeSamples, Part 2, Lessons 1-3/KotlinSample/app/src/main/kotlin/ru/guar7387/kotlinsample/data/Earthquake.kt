@@ -5,7 +5,9 @@ import android.os.Parcel
 import java.util.Date
 import android.os.Bundle
 
-data public class Earthquake(public val dateTime: Long, public val magnitude: Int, public val location: String) : Parcelable {
+data public class Earthquake(public val dateTime: Long,
+                             public val magnitude: Int,
+                             public val location: String) : Parcelable {
 
     override fun describeContents(): Int {
         return 0

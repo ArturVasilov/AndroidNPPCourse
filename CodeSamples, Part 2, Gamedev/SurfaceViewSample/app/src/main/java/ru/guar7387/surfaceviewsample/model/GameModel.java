@@ -17,9 +17,7 @@ public interface GameModel {
 
     public BitmapsStorage getBitmapsStorage();
 
-    public int getScreenWidth();
-
-    public int getScreenHeight();
-
     public void init();
 }
+
+

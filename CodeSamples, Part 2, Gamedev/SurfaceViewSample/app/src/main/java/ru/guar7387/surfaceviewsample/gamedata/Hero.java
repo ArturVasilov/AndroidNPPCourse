@@ -45,3 +45,5 @@ public class Hero implements GameObject {
         return 3;
     }
 }
+
+

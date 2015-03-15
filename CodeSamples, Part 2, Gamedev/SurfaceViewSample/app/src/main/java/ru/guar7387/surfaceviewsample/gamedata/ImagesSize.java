@@ -6,23 +6,23 @@ public class ImagesSize {
 
     public static void init(int screenWidth, int screenHeight) {
         wasInit = true;
-        SCREEN_WIDTH = screenWidth;
-        SCREEN_HEIGHT = screenHeight;
+        ImagesSize.screenWidth = screenWidth;
+        ImagesSize.screenHeight = screenHeight;
     }
 
-    private static int SCREEN_WIDTH;
-    private static int SCREEN_HEIGHT;
+    private static int screenWidth;
+    private static int screenHeight;
 
     public static int getScreenWidth() {
         if (wasInit) {
-            return SCREEN_WIDTH;
+            return screenWidth;
         }
         throw new IllegalStateException("You should instantiate screen params first");
     }
 
     public static int getScreenHeight() {
         if (wasInit) {
-            return SCREEN_HEIGHT;
+            return screenHeight;
         }
         throw new IllegalStateException("You should instantiate screen params first");
     }
@@ -52,3 +52,5 @@ public class ImagesSize {
         int BITMAP_HEIGHT = 297;
     }
 }
+
+

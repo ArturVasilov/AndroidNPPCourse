@@ -13,7 +13,8 @@ public class DatabaseDefaultProvider(val context: Context) : DatabaseProvider {
     override fun saveEarthquakes(earthquakes: List<Earthquake>, filter: (Earthquake) -> Boolean) {
         for (earthquake in earthquakes) {
             if (filter.invoke(earthquake)) {
-                database.insertWithOnConflict(TABLE_NAME, null, earthquake.contentValues(), SQLiteDatabase.CONFLICT_REPLACE)
+                database.insertWithOnConflict(TABLE_NAME, null,
+                        earthquake.contentValues(), SQLiteDatabase.CONFLICT_REPLACE)
             }
         }
     }
@@ -33,3 +34,7 @@ public class DatabaseDefaultProvider(val context: Context) : DatabaseProvider {
         database.close()
     }
 }
+
+
+
+

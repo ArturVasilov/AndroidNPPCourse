@@ -22,8 +22,8 @@ import java.io.BufferedReader
 
 val TAG = "downloading earthquakes"
 
-public fun EarthquakerService.downloadEarthquakes(request: String) : ArrayList<Earthquake> {
-    val TAG = "downloading earthquakes"
+public fun EarthquakerService.downloadEarthquakes(request: String) :
+        ArrayList<Earthquake> {
     val builder = StringBuilder();
     log(TAG, "Request. Params - " + builder.toString());
     val inputStream : InputStream;
@@ -86,3 +86,6 @@ fun parseJson(json: JSONObject): ArrayList<Earthquake> {
     log(TAG, features.toString())
     return result
 }
+
+
+

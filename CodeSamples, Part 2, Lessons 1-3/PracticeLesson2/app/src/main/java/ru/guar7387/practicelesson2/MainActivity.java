@@ -1,6 +1,5 @@
 package ru.guar7387.practicelesson2;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

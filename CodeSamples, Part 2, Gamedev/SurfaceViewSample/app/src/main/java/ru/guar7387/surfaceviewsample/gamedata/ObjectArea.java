@@ -49,22 +49,13 @@ public class ObjectArea implements Area {
     @Override
     public boolean intersects(Area area) {
         Point point = new Point(area.getLeft(), area.getTop());
-        if (isPointInRect(point)) {
-            Logger.log("Object area", "intersected");
-            return true;
-        }
+        if (isPointInRect(point)) return true;
 
         point.set(area.getLeft(), area.getBottom());
-        if (isPointInRect(point)) {
-            Logger.log("Object area", "intersected");
-            return true;
-        }
+        if (isPointInRect(point)) return true;
 
         point.set(area.getRight(), area.getTop());
-        if (isPointInRect(point)) {
-            Logger.log("Object area", "intersected");
-            return true;
-        }
+        if (isPointInRect(point)) return true;
 
         point.set(area.getRight(), area.getBottom());
         return isPointInRect(point);

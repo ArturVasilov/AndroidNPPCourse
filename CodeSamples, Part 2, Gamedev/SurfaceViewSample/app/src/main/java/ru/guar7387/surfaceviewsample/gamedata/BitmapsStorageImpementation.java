@@ -26,3 +26,4 @@ public class BitmapsStorageImpementation implements BitmapsStorage {
         return bitmap;
     }
 }
+

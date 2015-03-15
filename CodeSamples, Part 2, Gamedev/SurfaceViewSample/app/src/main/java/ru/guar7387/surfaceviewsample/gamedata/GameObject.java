@@ -14,3 +14,5 @@ public interface GameObject {
 
     public void move(long time);
 }
+
+

@@ -105,16 +105,16 @@ public class GameThread extends Thread implements GameResult {
         BitmapsStorage bitmapsStorage = mGameModel.getBitmapsStorage();
 
         Hero hero = mGameModel.getHero();
-        Bitmap bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), hero.getBitmapId(), hero.getObjectArea());
+        Bitmap bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), hero.getBitmapId());
         hero.render(bitmap, mPaint, canvas);
         for (Monster monster : mGameModel.getMonsters()) {
-            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), monster.getBitmapId(), monster.getObjectArea());
+            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), monster.getBitmapId());
             monster.render(bitmap, mPaint, canvas);
         }
         //to prevent concuttrent modification
         List<Fireball> fireballs = new ArrayList<>(mGameModel.getFireballs());
         for (Fireball fireball : fireballs) {
-            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), fireball.getBitmapId(), fireball.getObjectArea());
+            bitmap = bitmapsStorage.loadBitmap(mContext.getResources(), fireball.getBitmapId());
             fireball.render(bitmap, mPaint, canvas);
         }
         holder.unlockCanvasAndPost(canvas);

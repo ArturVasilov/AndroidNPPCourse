@@ -45,7 +45,7 @@ public class BossMonster implements Monster {
 
     @Override
     public int getSpeed() {
-        return 40;
+        return 15;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class BossMonster implements Monster {
         int right = this.right;
         int bottom = area.getBottom();
 
-        difX += (getSpeed() * (1.0 * time / 3600));
+        difX += (getSpeed() * (1.0 * time / 1000));
         left -= (int) difX;
         right -= (int) difX;
         area.changePosition(left, top, right, bottom);

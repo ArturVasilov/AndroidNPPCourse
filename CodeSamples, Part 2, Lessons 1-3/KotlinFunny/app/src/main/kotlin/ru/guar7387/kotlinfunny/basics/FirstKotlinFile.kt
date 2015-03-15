@@ -35,7 +35,7 @@ fun varags(a: Int, b: Int = 0, c: String = "hehe") {
 fun test() = varags(3, 4, "aa")
 
 fun testing() {
-    val o = FirstKotlinclass(3, 5.0)
+    val o = FirstKotlinClass(1, 5.0)
     assert(o.sum() < 8.01)
 }
 

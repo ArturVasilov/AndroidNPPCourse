@@ -18,7 +18,10 @@ public class EarthquakerService : IntentService("EarthquakeService") {
     }
 
     val request : String
-        //get() = "{\"format\":\"geojson\", \"startime\":\"2015.01.01\", \"endtime\":\"2015.01.30\", \"minmagnitude\":5}"
-        get() = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-30&minmagnitude=4"
+        get() = "http://earthquake.usgs.gov/fdsnws/event/1/query?" +
+                "format=geojson&starttime=2014-01-01&endtime=2014-01-30&minmagnitude=4"
 
 }
+
+
+

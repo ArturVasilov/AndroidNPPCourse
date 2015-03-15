@@ -8,5 +8,14 @@ public fun Earthquake.contentValues() : ContentValues {
     args.put(DATE_TIME, dateTime)
     args.put(MAGNITUDE, magnitude)
     args.put(LOCATION, location)
+
+
+    val func: (x: Int) -> Int = { it * 2 }
+
     return args
 }
+
+
+
+
+

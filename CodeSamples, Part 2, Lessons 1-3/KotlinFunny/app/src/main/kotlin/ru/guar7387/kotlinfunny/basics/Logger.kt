@@ -9,7 +9,7 @@ public class Logger {
 
     class object {
         fun log(tag: String, message: String) {
-            if (kotlinfunny.isDebug) {
+            if (isDebug) {
                 Log.i(tag, message)
             }
         }

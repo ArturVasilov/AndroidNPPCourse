@@ -67,15 +67,15 @@ public class Fireball implements GameObject {
 
     @Override
     public void move(long time) {
-        int speed = 1500;
+        int speed = 500;
 
         int left = this.left;
         int top = this.top;
         int right = this.right;
         int bottom = this.bottom;
 
-        difX += Math.cos(angle) * speed * (1.0 * time / 3600);
-        difY += Math.sin(angle) * speed * (1.0 * time / 3600);
+        difX += Math.cos(angle) * speed * (1.0 * time / 1000);
+        difY += Math.sin(angle) * speed * (1.0 * time / 1000);
 
         left += (int) difX;
         right += (int) difX;

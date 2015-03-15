@@ -96,7 +96,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         EditText time = (EditText) solo.getView(R.id.time);
         assertEquals(new SimpleDateFormat("hh:mm a", Locale.getDefault()).
                 format(Calendar.getInstance().getTime()), time.getText().toString());
-
     }
 
     @Override

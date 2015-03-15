@@ -4,7 +4,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 
-public class EarthquakeDatabase(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION){
+public class EarthquakeDatabase(val context: Context) :
+        SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION){
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" +
@@ -21,3 +22,5 @@ public class EarthquakeDatabase(val context: Context) : SQLiteOpenHelper(context
     }
 
 }
+
+

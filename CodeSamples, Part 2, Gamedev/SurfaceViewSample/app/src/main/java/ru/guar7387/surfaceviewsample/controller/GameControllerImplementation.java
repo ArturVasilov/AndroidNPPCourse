@@ -154,7 +154,7 @@ public class GameControllerImplementation implements GameController {
             return;
         }
         //to add a little randomness for monsters time appearence
-        int randomness = Math.max(monstersCountController / 5000, 30);
+        int randomness = Math.max(monstersCountController / 5000, 5);
         boolean shouldAddNewMonster = random.nextInt(randomness) == 5;
         if (shouldAddNewMonster) {
             Monster monster;
@@ -199,3 +199,5 @@ public class GameControllerImplementation implements GameController {
         gameModel.getFireballs().add(new Fireball(x, y, destinationX, destinationY));
     }
 }
+
+
