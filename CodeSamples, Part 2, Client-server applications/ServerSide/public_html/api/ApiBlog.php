@@ -8,8 +8,6 @@ class ApiBlog extends ApiBase
 {
     protected $sqlWorker = null;
 
-    //TODO : work with functions
-
     /**
      * @param $methodParams mixed empty json string
      * @return mixed all articles from database in json format
@@ -123,7 +121,6 @@ class ApiBlog extends ApiBase
         return $response;
     }
 
-
     /**
      * @param $methodParams mixed json string token and article id
      * @return mixed concrete articles in json
@@ -137,8 +134,35 @@ class ApiBlog extends ApiBase
             $this->sqlWorker = SQlWorker::getInstance();
             $this->sqlWorker->loadEngine();
 
-            $query = "SELECT `id`, `title`, `short_description`, `url`, `date`
+            $query = "SELECT `id`, `title`, `short_description`, `url`, `date`, `content`
                 FROM `articles` WHERE `id`='" . $methodParams->id . "' LIMIT 1";
+            $this->sqlWorker->query($query);
+
+            while($row = $this->sqlWorker->fetch_row()){
+                $response->result = $row;
+            }
+        }
+        else {
+            $response->errorno = DatabaseConstants::$ERROR_PARAMS_TOKEN;
+        }
+        return $response;
+    }
+
+    /**
+     * @param $methodParams mixed json string token and article id
+     * @return mixed concrete articles in json
+     */
+    public function getArticleComments($methodParams)
+    {
+        $response = $this->createDefaultJson();
+        if (isset($methodParams->token) && $methodParams->token == API_PASS
+            && isset($methodParams->id)) {
+
+            $this->sqlWorker = SQlWorker::getInstance();
+            $this->sqlWorker->loadEngine();
+
+            $query = "SELECT `id`
+                FROM `comments` WHERE `article_id`='" . $methodParams->id . "' LIMIT 1";
             $this->sqlWorker->query($query);
 
             while($row = $this->sqlWorker->fetch_row()){
@@ -261,8 +285,8 @@ class ApiBlog extends ApiBase
             $this->sqlWorker = SQLWorker::getInstance();
             $this->sqlWorker->loadEngine();
 
-            $query = "SELECT `id` FROM `users` WHERE `email`='" .
-                $this->sqlWorker->escape_string($methodParams->email) . "'
+            $query = "SELECT `id` FROM `users` WHERE `id`='" .
+                $this->sqlWorker->escape_string($methodParams->user_id) . "'
                  AND `password`='" . sha1($this->sqlWorker->escape_string($methodParams->password)) . "' LIMIT 1";
             $this->sqlWorker->query($query);
 
@@ -358,8 +382,8 @@ class ApiBlog extends ApiBase
             $this->sqlWorker = SQLWorker::getInstance();
             $this->sqlWorker->loadEngine();
 
-            $query = "SELECT `id` FROM `users` WHERE `email`='" .
-                $this->sqlWorker->escape_string($methodParams->email) . "'
+            $query = "SELECT `id` FROM `users` WHERE `id`='" .
+                $this->sqlWorker->escape_string($methodParams->user_id) . "'
                  AND `password`='" . sha1($this->sqlWorker->escape_string($methodParams->password)) . "' LIMIT 1";
             $this->sqlWorker->query($query);
 
