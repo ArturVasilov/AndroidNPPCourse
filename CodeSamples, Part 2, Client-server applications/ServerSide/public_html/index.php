@@ -3,20 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Android Blog</title>
-    <link rel="stylesheet" type="text/css" href="css/menu.css">
 </head>
 <body>
 
-<div id="hmenu">
-    <ul>
-        <li><a href="registration_form.html">Sign up</a></li>
-        <li><a href="log_in_form.html">Log in</a></li>
-    </ul>
-</div>
+<?php
+    include('pages_header.php');
+?>
 
 <div style="text-decoration: none; display: inline-block; width: 100%;
 color: #FFF; background-color: #778899; padding-top: 10px; padding-bottom: 10px;">
-    <a href="articles/material_design/material_design_part_1.html" title="Material design">
+    <a href="material_design_part_1.php" title="Material design">
         <div style="font-weight: bold; font-size: large; color: white; width: inherit;">Material design - part 1</div></a>
 </div>
 
@@ -29,7 +25,7 @@ color: #FFF; background-color: #778899; padding-top: 10px; padding-bottom: 10px;
 
 <div style="text-decoration: none; display: inline-block; width: 100%;
 color: #FFF; background-color: #778899; padding-top: 10px; padding-bottom: 10px;">
-    <a href="articles/material_design/material_design_part_2.html" title="Material design">
+    <a href="material_design_part_2.php" title="Material design">
         <div style="font-weight: bold; font-size: large; color: white; width: inherit;">Material design - part 2</div></a>
 </div>
 

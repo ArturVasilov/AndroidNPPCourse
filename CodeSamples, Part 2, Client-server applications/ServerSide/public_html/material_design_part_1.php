@@ -3,9 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Material design</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="articles/material_design/styles.css">
 </head>
 <body>
+
+<?php
+    include('pages_header.php');
+?>
+
 <p>
     На ежегодной конференции Google I/O 2014 компания Google предоставила новую концепцию дизайна, которая была
     названа MaterialDesign. Концепция «материального» дизайна была полностью реализована в новой версии Android
@@ -87,7 +92,7 @@
 </p>
 
 <pre style="background:#eee;color:#000"><span style="color:#1c02ff">&lt;<span
-        style="font-weight:700">TextView</span>
+            style="font-weight:700">TextView</span>
     <span style="font-style:italic"></span>&lt;!--other attributes -->
     <span style="font-style:italic">android</span>:elevation=<span style="color:#036a07">"3dp"</span>
     <span style="font-style:italic">android</span>:background=<span
@@ -99,7 +104,7 @@
 </p>
 
 <pre style="background:#eee;color:#000"><span style="color:#1c02ff">&lt;<span style="font-weight:700">shape</span> <span
-        style="font-style:italic">xmlns</span>:android=<span style="color:#036a07">"http://schemas.android.com/apk/res/android"</span>
+            style="font-style:italic">xmlns</span>:android=<span style="color:#036a07">"http://schemas.android.com/apk/res/android"</span>
        <span style="font-style:italic">android</span>:shape=<span style="color:#036a07">"rectangle"</span>></span>
     <span style="color:#1c02ff">&lt;<span style="font-weight:700">solid</span> <span
             style="font-style:italic">android</span>:color=<span style="color:#036a07">"#42000000"</span> /></span>
@@ -173,6 +178,12 @@
     информацию. Моей целью было только познакомить вас с общими принципами Material Design, чтобы можно было перейти к
     рассмотрению практического приложения.
 </p>
+
+<?php
+    require_once('CommentsManager.php');
+    $comments = new CommentsManager();
+    $comments->printArticleComments(1);
+?>
 
 </body>
 </html>

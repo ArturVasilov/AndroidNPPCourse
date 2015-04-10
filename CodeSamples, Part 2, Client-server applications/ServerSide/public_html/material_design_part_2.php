@@ -3,9 +3,13 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Material design</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="articles/material_design/styles.css">
 </head>
 <body>
+
+<?php
+    include('pages_header.php');
+?>
 
 <p>
     Мы разобрали философию Material Design в общем, но это пока не сильно помогает нам при разработке приложений. Пора
@@ -43,5 +47,10 @@
     <span style="color:#1c02ff">&lt;<span style="font-weight:700">color</span> <span style="font-style:italic">name</span>=<span style="color:#036a07">"color_accent"</span>></span><span style="color:#06f;font-style:italic">&lt;!-- your color here --></span><span style="color:#1c02ff">&lt;/<span style="font-weight:700">color</span>></span>
 <span style="color:#1c02ff">&lt;/<span style="font-weight:700">resources</span>></span>
 </pre>
+
+<?php
+
+?>
+
 </body>
 </html>
